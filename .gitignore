@@ -1,0 +1,16 @@
+datasets/*
+AcDyBench/*
+checkpoint/
+dummy_dataset/
+src/visualization
+output/
+src/testing_outputs
+_backup
+**/__pycache__/
+**/*.code-workspace
+ckpt/
+*.pt
+*tar.gz
+*.zip
+*.png
+*.jpg

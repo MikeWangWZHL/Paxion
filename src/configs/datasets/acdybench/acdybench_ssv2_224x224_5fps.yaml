@@ -1,0 +1,19 @@
+datasets:
+  acdybench_ssv2_224x224_5fps: # name of the dataset builder
+    dataset_card: dataset_cards/acdybench_ssv2.md
+    data_type: videos # [images|videos|features]
+
+    build_info:
+      # Be careful not to append minus sign (-) before split to avoid itemizing
+      annotations:
+        train:
+          path: AcDyBench/ssv2/original
+          use_templates_as_labels: false
+        val:
+          path: AcDyBench/ssv2/original
+          use_templates_as_labels: false
+        test:
+          path: AcDyBench/ssv2/original
+          use_templates_as_labels: true # This needs to be true to be loaded properly
+      videos:
+        path: datasets/SSv2/video_clips/clips_downsampled_5fps_downsized_224x224

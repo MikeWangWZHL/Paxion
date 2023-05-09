@@ -1,0 +1,102 @@
+ # Copyright (c) 2022, salesforce.com, inc.
+ # All rights reserved.
+ # SPDX-License-Identifier: BSD-3-Clause
+ # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
+model:
+  arch: physical_knowledge_patcher_singularity_reformulated_mcqa
+  model_type: singularity_temporal_17m
+  load_pretrained: True
+  backbone_config_yaml: "/shared/nas/data/m1/wangz3/phy-lm-vid/src/Singularity/configs/pretrained_singularity_temporal_17m.yaml"
+  pretrained: /shared/nas/data/m1/wangz3/phy-lm-vid/src/output/NextQA/train/singularity/nextqa_v4_single_singularity_mcqa_only_pooling_perceiver_10epoch/20230407185/checkpoint_best.pth
+
+  text_perceiver_config:
+    dim: 256 # latent query dim
+    k_v_dim: 768 # text_width
+    depth: 1
+    dim_head: 64
+    heads: 8
+    num_latents: 16
+    ff_mult: 2
+
+  vision_perceiver_config:
+    dim: 256 # latent query dim
+    k_v_dim: 768 # vision_width
+    depth: 1
+    dim_head: 64
+    heads: 8
+    num_latents: 16
+    ff_mult: 2
+
+  objectives: ["mcqa_loss"]
+  loss_weighting: [1.0]
+  if_use_attn_guidance: False
+  if_use_dual_perceiver: False
+  if_add_temporal_emebdding: False
+  num_frms: 8
+  temp_emb_drop_out: 0.0
+  if_pooling_perceiver_features: True # pooling the perceiver output tokens
+
+
+datasets:
+  downstream_tasks_qa_nextqa_224x224_5fps:
+    type: "default"
+    vis_processor:
+      train:
+        name: "video_train"
+        image_size: 224
+      eval:
+        name: "internvideo_eval"
+        image_size: 224
+    text_processor:
+      train:
+        name: "minimum_text"
+      eval:
+        name: "minimum_text"
+    
+    # IMPORTANT configs:
+    task: 5way-multiple-choice-qa # 
+    neg_sampling_same_clip: 0
+    eval_only: True
+    
+    # other arguements
+    train_k: null # sample a subset of k instances
+    eval_k: null # sample a subset of 3000 instances, reduce evaluation time
+    frm_sampling_strategy: "uniform" # take the first and last frame as start and end state
+    num_frm: 8
+    train_frame_height: 224
+    train_frame_width: 224
+    eval_frame_height: 224
+    eval_frame_width: 224
+
+run:
+  # use custom runner
+  runner: runner_base_vl_dynamic_modeling
+  
+  # task object name
+  task: downstream_tasks_multi_choice_qa
+
+  # which module is used for inference ["backbone", "knowledge_patcher"]
+  eval_module: knowledge_patcher
+  eval_task: 5way-multiple-choice-qa
+  # eval_method: two_step_independent
+
+  batch_size_train: 32
+  batch_size_eval: 8
+  num_workers: 4
+
+  seed: 42
+  output_dir: "/shared/nas/data/m1/wangz3/phy-lm-vid/src/output/downstream_tasks/eval/QA/finetuned/singularity/nextqa_singularity_v4_single_mcqa_only_pooling_perceiver_10epoch"
+
+  amp: False
+  resume_ckpt_path: null
+
+  evaluate: True 
+  # train_splits: ["train"]
+  valid_splits: ["val"]
+  test_splits: ["test"]
+
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True

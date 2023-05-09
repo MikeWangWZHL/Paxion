@@ -1,0 +1,16 @@
+datasets:
+  downstream_tasks_qa_nextqa_224x224_5fps: # name of the dataset builder
+    dataset_card: dataset_cards/downstream_task_nextqa.md
+    data_type: videos # [images|videos|features]
+
+    build_info:
+      # Be careful not to append minus sign (-) before split to avoid itemizing
+      annotations:
+        train:
+          path: datasets/NextQA/ann/nextqa_action_antonym
+        val:
+          path: datasets/NextQA/ann/nextqa_action_antonym
+        test:
+          path: datasets/NextQA/ann/nextqa_action_antonym
+      videos:
+        path: datasets/NextQA/video_clips/NExTVideo_downsampled_5fps_downsized_224x224

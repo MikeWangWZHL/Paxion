@@ -1,0 +1,72 @@
+ # Copyright (c) 2022, salesforce.com, inc.
+ # All rights reserved.
+ # SPDX-License-Identifier: BSD-3-Clause
+ # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
+model:
+  arch: physical_knowledge_patcher_internvideo_baseline # w/o jointly train vis encoder using action prediction
+  model_type: InternVideo-MM-L-14
+  load_pretrained: True
+  backbone_pretrained: "/shared/nas/data/m1/wangz3/phy-lm-vid/third_party/InternVideo/models/InternVideo-MM-L-14.ckpt"
+  pretrained: "/shared/nas/data/m1/wangz3/phy-lm-vid/src/output/physical_knowledge_bench/train/ego4d__knowledge_patcher_internvideo_baseline/20230304105/checkpoint_best.pth"
+
+datasets:
+  physical_knowledge_bench_ego4d_224x224_5fps: # using subset of egoclip for training and egomcq for validation
+    vis_processor:
+      train:
+        name: "video_train"
+        image_size: 224
+      eval:
+        name: "internvideo_eval"
+        image_size: 224
+    text_processor:
+      train:
+        name: "vl_dynamic_ego4d_text"
+      eval:
+        name: "vl_dynamic_ego4d_text"
+    
+    # IMPORTANT configs: 
+    fps: 5 # if downsampled, use 5 fps
+    task: "reversed_video" # evaluation task: ["video_text_matching", "action_antonym", "consequence_precondition", "reversed_video"]
+    neg_sampling_same_clip: 0 # evaluation set to 0
+    eval_only: True
+    
+    # other arguements
+    k: null # sample a subset of k instances
+    frm_sampling_strategy: "uniform" # take the first and last frame as start and end state
+    num_frm: 8
+    train_frame_height: 224
+    train_frame_width: 224
+    eval_frame_height: 224
+    eval_frame_width: 224
+
+run:
+  # use custom runner
+  runner: runner_base_vl_dynamic_modeling
+  
+  # task object name
+  task: physical_knowledge_bench
+
+  # which module is used for inference ["backbone", "knowledge_patcher", "knowledge_patcher_baseline"]
+  eval_module: knowledge_patcher_baseline
+  eval_task: reversed_video
+
+  batch_size_train: 16
+  batch_size_eval: 4
+  num_workers: 4
+
+  seed: 42
+  output_dir: "/shared/nas/data/m1/wangz3/phy-lm-vid/src/output/physical_knowledge_bench/eval/ego4d__internvideo_baseline_v1_1epoch__reversed_video"
+
+  amp: False
+  resume_ckpt_path: null
+
+  evaluate: True 
+  # train_splits: ["train"]
+  # valid_splits: ["val"]
+  test_splits: ["test"]
+
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True

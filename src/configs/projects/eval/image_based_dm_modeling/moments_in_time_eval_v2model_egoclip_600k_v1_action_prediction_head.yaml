@@ -1,0 +1,71 @@
+ # Copyright (c) 2022, salesforce.com, inc.
+ # All rights reserved.
+ # SPDX-License-Identifier: BSD-3-Clause
+ # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
+model:
+  arch: blip_vl_dynamicmodel_pretrain_v2 # w/o jointly train vis encoder using action prediction
+
+  # model_type: base_finetuned_v2 # find a better way to do this config
+  # load_pretrained: True
+
+  model_type: base
+  load_pretrained: True
+  pretrained: "/shared/nas/data/m1/wangz3/phy-lm-vid/src/output/ego4d_dynamic_modeling_egovlp_v1_downsampled/pretrain_model_v2/20230120105/checkpoint_best.pth"
+  
+  queue_size: 57600
+  alpha: 0.2 # origianl 0.4
+
+datasets:
+  moments_in_time: # using moments in time validation
+    vis_processor:
+        eval:
+          name: "vl_dynamic_blip_ego4d_image_eval"
+          image_size: 224
+    text_processor:
+        eval:
+          name: "vl_dynamic_ego4d_text"
+    # sample a subset of k instances
+    k: null
+    # other arguements
+    frm_sampling_strategy: "uniform" # take the first and last frame as start and end state
+    prompt: ""
+    num_frm: 2
+    train_frame_height: 224
+    train_frame_width: 224
+    eval_frame_height: 224
+    eval_frame_width: 224
+
+    eval_only: True # only build validation set
+
+    # fps: null # unknown fps
+run:
+  # use custom runner (default is runner_base)
+  runner: runner_base_vl_dynamic_modeling
+  # task
+  task: moments_in_time_vl_action_prediction_eval
+
+  batch_size_train: 32
+  batch_size_eval: 32
+  
+  num_workers: 8
+
+  max_len: 30
+  min_len: 5
+  num_beams: 3
+
+  seed: 42
+  output_dir: "/shared/nas/data/m1/wangz3/phy-lm-vid/src/output/moments_in_time/eval_vl_dm_v2model_action_prediction_head"
+
+  amp: False
+  resume_ckpt_path: null
+
+  evaluate: True 
+  # train_splits: ["train"]
+  valid_splits: ["val"]
+  # test_splits: ["test"]
+
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True

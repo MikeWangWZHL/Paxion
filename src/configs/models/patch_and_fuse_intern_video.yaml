@@ -1,0 +1,24 @@
+ # Copyright (c) 2022, salesforce.com, inc.
+ # All rights reserved.
+ # SPDX-License-Identifier: BSD-3-Clause
+ # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
+model:
+  arch: patch_and_fuse_internvideo
+
+  load_pretrained: True
+  backbone_pretrained: "src/pretrained_ckpt/InternVideo/InternVideo-MM-L-14.ckpt"
+
+preprocess:
+  vis_processor:
+    train:
+      name: "video_train"
+      image_size: 224
+    eval:
+      name: "internvideo_eval"
+      image_size: 224
+  text_processor:
+    train:
+      name: "vl_dynamic_ego4d_text"
+    eval:
+      name: "vl_dynamic_ego4d_text"

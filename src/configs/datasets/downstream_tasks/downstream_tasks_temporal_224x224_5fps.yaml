@@ -1,0 +1,13 @@
+datasets:
+  downstream_tasks_temporal: # name of the dataset builder
+    dataset_card: dataset_cards/downstream_tasks_temporal.md
+    data_type: videos #extracted features of videos (I3D, VGGish) # [images|videos|features]
+
+    build_info:
+      annotations:
+        val:
+          path: datasets/Temporal/ann
+      videos:
+        path:
+          kinetics: datasets/Temporal/video_clips/kinetics400/clips_downsampled_5fps_downsized_224x224
+          ssv2: datasets/SSv2/video_clips/clips_downsampled_5fps_downsized_224x224

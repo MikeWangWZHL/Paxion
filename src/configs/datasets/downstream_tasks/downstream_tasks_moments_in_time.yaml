@@ -1,0 +1,14 @@
+datasets:
+  downstream_tasks_moment_in_time: # name of the dataset builder
+    dataset_card: dataset_cards/moments_in_time.md
+    data_type: videos #extracted features of videos (I3D, VGGish) # [images|videos|features]
+
+    build_info:
+      # Be careful not to append minus sign (-) before split to avoid itemizing
+      annotations:
+        train:
+          path: datasets/Moments_In_Time/ann
+        val:
+          path: datasets/Moments_In_Time/ann
+      videos:
+        path: datasets/Moments_In_Time/videos

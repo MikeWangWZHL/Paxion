@@ -1,0 +1,56 @@
+model:
+  arch: clip
+  model_type: ViT-B-32
+  pretrained: openai
+
+datasets:
+  ego4d_end_state_retrieval_eval: # name of the dataset builder
+    vis_processor:
+        eval:
+          name: "vl_dynamic_blip_ego4d_image_eval"
+          image_size: 224
+    text_processor:
+        eval:
+          name: "vl_dynamic_ego4d_text"
+    # sample a subset of k instances
+    k: null
+    # other arguements
+    frm_sampling_strategy: "firstlast" # take the first and last frame as start and end state
+    num_frm: 2
+    train_frame_height: 224
+    train_frame_width: 224
+    eval_frame_height: 224
+    eval_frame_width: 224
+
+    fps: 5 # IMPORTANT: if downsampled, use 5 fps
+
+run:
+  runner: runner_base_vl_dynamic_modeling
+  
+  task: end_state_retrieval_clip_baseline
+
+  # dataloading
+  num_workers: 8
+  batch_size_train: 32
+  batch_size_eval: 32
+
+  # train_splits: ["train"]
+  valid_splits: ["val"]
+  # test_splits: ["test"]
+
+  # distribution
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True
+
+  use_dist_eval_sampler: False
+
+  # model specific
+  k_test: 256
+
+  # misc
+  seed: 42
+  output_dir: "/shared/nas/data/m1/wangz3/phy-lm-vid/src/output/end_state_retrieval/ego4d_egomcq_v1_clip_pretrained_baseline"
+
+  evaluate: True

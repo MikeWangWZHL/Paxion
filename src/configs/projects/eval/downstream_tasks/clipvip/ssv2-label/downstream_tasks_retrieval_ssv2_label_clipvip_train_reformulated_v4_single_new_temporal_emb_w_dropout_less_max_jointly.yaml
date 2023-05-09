@@ -1,0 +1,114 @@
+ # Copyright (c) 2022, salesforce.com, inc.
+ # All rights reserved.
+ # SPDX-License-Identifier: BSD-3-Clause
+ # For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
+model:
+  arch: physical_knowledge_patcher_clipvip_reformulated
+  model_type: pretrain_vip_base_32
+  load_pretrained: True
+  backbone_config_json: "/shared/nas/data/m1/wangz3/phy-lm-vid/src/ClipViP/src/configs/pretrained/pretrain_vip_base_32.json"
+  pretrained: /shared/nas/data/m1/wangz3/phy-lm-vid/src/output/knowledge_fuser_on_filtered_on_FDM/train/clipvip/ssv2/SSv2__knowledge_patcher_clipvip_reformulated_v4_single_new_temporal_emb_w_dropout_less_max_jointly/20230406020/checkpoint_0.pth
+
+  text_perceiver_config:
+    dim: 512 # latent query dim
+    k_v_dim: 512 # text_width
+    depth: 1
+    dim_head: 64
+    heads: 8
+    num_latents: 16
+    ff_mult: 2
+
+  vision_perceiver_config:
+    dim: 512 # latent query dim
+    k_v_dim: 768 # vision_width
+    depth: 1
+    dim_head: 64
+    heads: 8
+    num_latents: 16
+    ff_mult: 2
+
+  knowledge_fuser_config:
+    dim: 512 # latent query dim
+    k_v_dim: 512 # latent query dim
+    dim_head: 64
+    heads: 8
+    ff_mult: 2
+
+  objectives: ["video_text_contrastive"]
+  loss_weighting: [1.0]
+  if_use_attn_guidance: False
+  if_use_dual_perceiver: False
+  if_add_temporal_emebdding: True
+  num_frms: 8
+  temp_emb_drop_out: 0.1
+  if_as_knowledge_fuser: True
+  knowledge_fuser_type: "xattn"
+  train_knowledge_fuser_jointly: True
+
+
+datasets:
+  downstream_tasks_retrieval_ssv2_224x224_5fps:
+    type: "default"
+    vis_processor:
+      train:
+        name: "video_train"
+        image_size: 224
+      eval:
+        name: "internvideo_eval"
+        image_size: 224
+    text_processor:
+      train:
+        name: "minimum_text"
+      eval:
+        name: "minimum_text"
+    
+    # IMPORTANT configs: 
+    fps: 5 # if downsampled, use 5 fps
+    task: ssv2_label # ssv2_label, ssv2_template
+    neg_sampling_same_clip: 0
+    eval_only: True
+    
+    # other arguements
+    train_k: null # sample a subset of k instances
+    eval_k: null # sample a subset of 3000 instances, reduce evaluation time
+    frm_sampling_strategy: "uniform" # take the first and last frame as start and end state
+    num_frm: 8
+    train_frame_height: 224
+    train_frame_width: 224
+    eval_frame_height: 224
+    eval_frame_width: 224
+
+run:
+  # use custom runner
+  runner: runner_base_vl_dynamic_modeling
+  
+  # task object name
+  task: downstream_tasks_retrieval
+
+  # which module is used for inference ["backbone", "knowledge_patcher"]
+  # eval_module: backbone
+  eval_module: knowledge_patcher
+  eval_task: ssv2_label
+  # eval_method: two_step_independent
+
+  batch_size_train: 32
+  batch_size_eval: 4
+  num_workers: 4
+
+  seed: 42
+  output_dir: "/shared/nas/data/m1/wangz3/phy-lm-vid/src/output/downstream_tasks_on_filtered_on_FDM/eval/clipvip/ssv2-label/SSv2_label__knowledge_patcher_clipvip_reformulated_v4_single_new_temporal_emb_w_dropout_less_max_jointly_1_1_epoch"
+
+  amp: False
+  resume_ckpt_path: null
+
+  evaluate: True
+  
+  # train_splits: ["train"]
+  valid_splits: ["val"]
+  # test_splits: ["test"]
+
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True
