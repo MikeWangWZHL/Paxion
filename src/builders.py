@@ -458,7 +458,7 @@ class DownstreamTasks_MomentInTime_Builder(BaseDatasetBuilder):
         eval_frame_width = self.config.get('eval_frame_width', 224)
         eval_only = self.config.get('eval_only', False)
         
-        task = self.config.get('task', 'video_action_retrieval')
+        task = self.config.get('task', 'video_action_retrieval_2k')
 
         datasets = dict()
         for split in ann_info.keys():

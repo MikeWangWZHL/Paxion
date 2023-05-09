@@ -7,7 +7,7 @@ model:
   arch: patch_and_fuse_clipvip
 
   load_pretrained: True
-  backbone_config_json: "src/ClipViP/src/configs/pretrained/pretrain_vip_base_32.json"
+  backbone_config_json: "ClipViP/src/configs/pretrained/pretrain_vip_base_32.json"
 
 
 preprocess:

@@ -37,7 +37,7 @@ test_file:
   msrvtt_1k_test: ${available_corpus.msrvtt_1k_test}
 
 text_encoder: bert-base-uncased
-bert_config: src/Singularity/configs/config_bert.json
+bert_config: Singularity/configs/config_bert.json
 vit_type: beit  # items in ${vit_zoo}
 vit_zoo:  # from huggingface
   beit: microsoft/beit-base-patch16-224-pt22k-ft22k
@@ -92,9 +92,9 @@ scheduler:
   min_lr_multi: 0.01  # min_lr will be `optimizer.lr * min_lr_multi`
   warmup_epochs: 1  # float
 
-output_dir: src/pretrained_ckpt/Singularity/output # output dir
+output_dir: pretrained_ckpt/Singularity/output # output dir
 resume: False  # if True, load optimizer and scheduler states as well
-pretrained_path: src/pretrained_ckpt/Singularity/singularity_temporal_17m.pth  # path to pretrained model weights, for resume only?
+pretrained_path: pretrained_ckpt/Singularity/singularity_temporal_17m.pth  # path to pretrained model weights, for resume only?
 evaluate: True
 # `eval_frame_ensemble': how do we aggregate scores if `video_input.num_frames_test' > `video_input.num_frames'
 # `concat': concat frames before input to multi-modal encoder, i.e., early fusion

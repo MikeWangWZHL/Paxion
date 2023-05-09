@@ -841,7 +841,7 @@ class DownstreamTask_MomentsInTime(AcDyBenchDatasetBase):
         vis_root: str,
         ann_root: str,
         split: Literal['train', 'val'],
-        task = Literal['video_action_retrieval'],
+        task = Literal['video_action_retrieval','video_action_retrieval_2k'],
         vis_processor = None,
         text_processor = None,
         frm_sampling_strategy = "uniform",
@@ -899,7 +899,10 @@ class DownstreamTask_MomentsInTime(AcDyBenchDatasetBase):
         if self.split == "training":
             ann_path = os.path.join(self.ann_root, "trainingSet.csv")
         else:
-            ann_path = os.path.join(self.ann_root, "validationSet.csv")
+            if self.task == "video_action_retrieval_2k":
+                ann_path = os.path.join(self.ann_root, "validationSet_2k.csv")
+            else:
+                ann_path = os.path.join(self.ann_root, "validationSet.csv")
 
         # get label texts & index mapping
         label_txt = os.path.join(self.ann_root, "moments_categories.txt")

@@ -577,25 +577,17 @@ def main(num_query = 10, sample_ids = []):
 
 if __name__ == "__main__":
     """usage:
-        bash run_scripts/inference/<downstream_task_name>.sh 
+        bash run_scripts/inference.sh 
     """
     random.seed(42) # Set the seed to 42
-    # random.seed(43) # Set the seed to 43 # to have different instances with ssv2_label and ssv2_template
-    
-    ### phy knowledge bench inference ###
-    # inference_type = "acdybench"
-    num_query = 1
-    sample_ids = [204782]
-    # # sample_ids = [216970, 107014, 43315, 66609, 29662, 104974, 204782, 185322, 151168, 15277]
-    # # sample_ids = [11166, 160837, 11092, 59260, 206364, 146782, 211679, 112221, 73081, 93162, 41605, 103412, 176453, 97871]
-    
-    ### downstream task qa ###
-    # inference_type = "downstream_task_next_qa"
-    # sample_ids = [i for i in range(40,80)]
+   
+    ## set samples for inference
+    num_query = 10
+    sample_ids = [] # if sample_ids == [], randomly select num_query instances
 
-    ### downstream task retrieval inference ###
-    # num_query = 30 # 
-    # sample_ids = [] # if sample_ids == [], randomly select num_query instances
+    # # you can set custom sample ids by
+    # num_query = 1
+    # sample_ids = [204782]
 
     main(num_query, sample_ids)
 

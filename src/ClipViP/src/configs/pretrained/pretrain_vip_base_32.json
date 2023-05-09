@@ -44,7 +44,7 @@
     "input_res": [224, 224],
     "max_txt_len": 70,
   
-    "e2e_weights_path": "src/pretrained_ckpt/ClipViP/pretrain_clipvip_base_32.pt",
+    "e2e_weights_path": "pretrained_ckpt/ClipViP/pretrain_clipvip_base_32.pt",
     "clip_weights": "openai/clip-vit-base-patch32",
     "clip_config": "openai/clip-vit-base-patch32",
     "clip_vision_additional_config": {

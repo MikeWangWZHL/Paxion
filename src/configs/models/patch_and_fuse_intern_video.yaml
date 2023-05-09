@@ -7,7 +7,7 @@ model:
   arch: patch_and_fuse_internvideo
 
   load_pretrained: True
-  backbone_pretrained: "src/pretrained_ckpt/InternVideo/InternVideo-MM-L-14.ckpt"
+  backbone_pretrained: "pretrained_ckpt/InternVideo/InternVideo-MM-L-14.ckpt"
 
 preprocess:
   vis_processor:

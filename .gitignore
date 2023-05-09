@@ -1,5 +1,10 @@
 datasets/*
-AcDyBench/*
+AcDyBench/ego4d
+AcDyBench/ssv2
+pretrained_ckpt/*
+*.pth
+*.pt
+*.ckpt
 checkpoint/
 dummy_dataset/
 src/visualization

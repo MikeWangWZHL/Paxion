@@ -7,7 +7,7 @@ model:
   arch: patch_and_fuse_singularity
 
   load_pretrained: True
-  backbone_config_yaml: "src/Singularity/configs/pretrained_singularity_temporal_17m.yaml"
+  backbone_config_yaml: "Singularity/configs/pretrained_singularity_temporal_17m.yaml"
 
 
 preprocess:

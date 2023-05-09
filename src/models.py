@@ -103,7 +103,6 @@ VAC = "video_action_contrastive"
 ATM = "action_temporal_matching"
 
 
-
 ## function for loading pretrained ckpt
 def load_from_pretrained(model, url_or_filename, key_mapping = {}):
     # key_mapping: mapping key names from checkpoint state_dict to model
@@ -176,6 +175,16 @@ class KnowledgePatcherBase(BaseModel):
 
     def forward(self, x):
         raise NotImplementedError('forward method not implemented')
+
+    @classmethod
+    def default_config_path(cls, model_type):
+        assert (
+            model_type in cls.PRETRAINED_MODEL_CONFIG_DICT
+        ), "Unknown model type {}".format(model_type)
+        rel_path = cls.PRETRAINED_MODEL_CONFIG_DICT[model_type]
+        src_root = os.path.dirname(os.path.abspath(__file__))
+        model_default_config_path = os.path.join(src_root, rel_path)
+        return model_default_config_path
 
 ### --------- Patch & Fuse: InternVideo --------- ###
 @registry.register_model("patch_and_fuse_internvideo")
