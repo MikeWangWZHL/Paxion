@@ -1,6 +1,6 @@
 # Repo for paper: "Paxion: Patching Action Knowledge in Video-Language Foundation Models"
 
-### A note regarding the naming convention in this repo: we use "PatchAndFuse" or "patch_and_fuse" as an alternative name for "Paxion.".
+### A note regarding the naming convention in this repo: we use "PatchAndFuse" or "patch_and_fuse" as an alternative name for "Paxion".
 
 # Setup
 ## Environment Setup 
