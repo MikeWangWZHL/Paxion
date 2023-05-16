@@ -27,8 +27,10 @@
 
 ## Dataset Setup
 ### Download Annotations
-- Download the annotations for **ActionBench** [here]() (Link removed for anonymity); and put under `ActionBench/ego4d` and `ActionBench/ssv2`
-- Download the annotations for **downstream tasks** [here]() (Link removed for anonymity); and put the downloaded folder under the root directory of this repo as `datasets/`
+- Download the annotations for **ActionBench** [here](https://uofi.box.com/s/alsp793jblpj4rpdbyt148zfk65iuqv1); and put under `ActionBench/ego4d` and `ActionBench/ssv2`
+- Download the annotations for **downstream tasks** [here](https://uofi.box.com/s/sgiqjerp7ju7x8fb6c4cnx4dnej3hmiv); and put the downloaded folder under the root directory of this repo as `datasets/`
+<!-- - Download the annotations for **ActionBench** [here]() (Link removed for anonymity); and put under `ActionBench/ego4d` and `ActionBench/ssv2`
+- Download the annotations for **downstream tasks** [here]() (Link removed for anonymity); and put the downloaded folder under the root directory of this repo as `datasets/` -->
 - **Annotation details** for each dataset can be found in the `.md` files in [dataset_cards](./dataset_cards/).
 
 ### Download Videos & Preprocessing
@@ -40,8 +42,10 @@ Please refer to the `.md` files in [dataset_cards](./dataset_cards/) for instruc
 - **Singularity**: Download the `Pre-trained checkpoints` following the instructions [here](https://github.com/jayleicn/singularity#download); put the `singularity_temporal_17m` under `src/pretrained_ckpt/Singularity/singularity_temporal_17m.pth`
 
 ## Download Trained Knowledge Patcher and Knowledge Fuser
-- Download the Knowledge Patcher checkpoints on actionbench [here]() (Link removed for anonymity); and put under `src/pretrained_ckpt/PatchAndFuse/ActionBench`
-- Download the Patch & Fuse checkpoints on downstream tasks [here]() (Link removed for anonymity); and put under `src/pretrained_ckpt/PatchAndFuse/downstream_tasks`
+- Download the Knowledge Patcher checkpoints on actionbench [here](https://uofi.box.com/s/148d5rijmpud7pl00tknmgb3mf5ef3zv); and put under `src/pretrained_ckpt/PatchAndFuse/ActionBench`
+- Download the Patch & Fuse checkpoints on downstream tasks [here](https://uofi.box.com/s/aayspmcn0yueqvtdtewwas3roejbxsud); and put under `src/pretrained_ckpt/PatchAndFuse/downstream_tasks`
+<!-- - Download the Knowledge Patcher checkpoints on actionbench [here]() (Link removed for anonymity); and put under `src/pretrained_ckpt/PatchAndFuse/ActionBench`
+- Download the Patch & Fuse checkpoints on downstream tasks [here]() (Link removed for anonymity); and put under `src/pretrained_ckpt/PatchAndFuse/downstream_tasks` -->
 
 # Quick Start
 **[demo.py](./src/demo.py)** shows an usage example on loading a trained PatchAndFuse model (with InternVideo backbone and trained on SSv2-label) and perform inference on video-text matching. 
