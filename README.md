@@ -1,4 +1,6 @@
-# Repo for paper: Patch & Fuse
+# Repo for paper: "Paxion: Patching Action Knowledge in Video-Language Foundation Models"
+
+### A note regarding the naming convention in this repo: we use "PatchAndFuse" or "patch_and_fuse" as an alternative name for "Paxion.".
 
 # Setup
 ## Environment Setup 
@@ -13,9 +15,9 @@
 - Setup conda environment
     ```
     conda env create -f environment.yml
-    conda activate patch_and_fuse
-    pip3 install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116
+    conda activate paxion
     ```
+    <!-- pip3 install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116 -->
 
 - install LAVIS library from source
     ```
@@ -51,10 +53,10 @@ We build our codebase on top of [LAVIS framework](https://github.com/salesforce/
 To train Knowledge Patcher on AcDyBench or further train Knowledge Fuser on downstream tasks, we provide configs under `src/configs/projects/train`; Please make sure to look into the configs and do necessary modifications (e.g. specify trained checkpoints which are marked as `#TODO`). 
 
 Here is an example for using the training configs (`run_scripts/train.sh`):
-```
-    cd src/
-    bash run_scripts/train.sh
-```
+    ```
+        cd src/
+        bash run_scripts/train.sh
+    ```
 
 ## Evaluation
 To evaluate Knowledge Patcher on AcDyBench or evaluate trained Knowledge Fuser on downstream tasks, we provide configs under `src/configs/projects/eval`; Please make sure to look into the configs and do necessary modifications (e.g. specify trained checkpoints which are marked as `#TODO`). 

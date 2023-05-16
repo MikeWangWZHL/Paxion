@@ -188,7 +188,7 @@ class KnowledgePatcherBase(BaseModel):
 
 ### --------- Patch & Fuse: InternVideo --------- ###
 @registry.register_model("patch_and_fuse_internvideo")
-class PatchAndFuseInternVideo(KnowledgePatcherBase):
+class PaxionInternVideo(KnowledgePatcherBase):
     PRETRAINED_MODEL_CONFIG_DICT = {
         "InternVideo-MM-L-14": "configs/models/patch_and_fuse_intern_video.yaml",
     }
@@ -864,7 +864,7 @@ from ClipViP.src.configs.config import shared_configs
 from easydict import EasyDict as edict
 
 @registry.register_model("patch_and_fuse_clipvip")
-class PatchAndFuseClipVIP(PatchAndFuseInternVideo):
+class PaxionClipVIP(PaxionInternVideo):
     PRETRAINED_MODEL_CONFIG_DICT = {
         "pretrain_vip_base_32": "configs/models/patch_and_fuse_clip_vip.yaml",
     }
@@ -996,7 +996,7 @@ from Singularity.models.utils import interpolate_pos_embed, interpolate_pos_rela
 from Singularity.models.model_retrieval import Singularity
 
 @registry.register_model("patch_and_fuse_singularity")
-class PatchAndFuseSingularity(PatchAndFuseInternVideo):
+class PaxionSingularity(PaxionInternVideo):
     PRETRAINED_MODEL_CONFIG_DICT = {
         "singularity_temporal_17m": "configs/models/patch_and_fuse_singularity.yaml",
     }
@@ -1801,7 +1801,7 @@ def _mcqa_forward_knowledge_patcher(model, samples):
     return mcqa_loss, losses
 
 @registry.register_model("patch_and_fuse_internvideo_mcqa")
-class PatchAndFuseInternVideo_MCQA(PatchAndFuseInternVideo):
+class PaxionInternVideo_MCQA(PaxionInternVideo):
     PRETRAINED_MODEL_CONFIG_DICT = {
         "InternVideo-MM-L-14": "configs/models/patch_and_fuse_intern_video.yaml",
     }
@@ -1819,7 +1819,7 @@ class PatchAndFuseInternVideo_MCQA(PatchAndFuseInternVideo):
         return _mcqa_forward_knowledge_patcher(self, samples)
 
 @registry.register_model("patch_and_fuse_clipvip_mcqa")
-class PatchAndFuseClipVIP_MCQA(PatchAndFuseClipVIP):
+class PaxionClipVIP_MCQA(PaxionClipVIP):
     PRETRAINED_MODEL_CONFIG_DICT = {
         "pretrain_vip_base_32": "configs/models/patch_and_fuse_clip_vip.yaml",
     }
@@ -1837,7 +1837,7 @@ class PatchAndFuseClipVIP_MCQA(PatchAndFuseClipVIP):
         return _mcqa_forward_knowledge_patcher(self, samples)
 
 @registry.register_model("patch_and_fuse_singularity_mcqa")
-class PatchAndFuseSingularity_MCQA(PatchAndFuseSingularity):
+class PaxionSingularity_MCQA(PaxionSingularity):
     PRETRAINED_MODEL_CONFIG_DICT = {
         "singularity_temporal_17m": "configs/models/patch_and_fuse_singularity.yaml",
     }

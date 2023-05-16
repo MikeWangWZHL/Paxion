@@ -109,10 +109,10 @@ if __name__ == "__main__":
     device = set_up_device(gpu_index=0)
 
     # input video
-    video_path = "demo_video/ssv2_204782__book_falling_like_a_rock.mp4"
+    video_path = "demo_video/ssv2_194058__book_falling_like_a_rock.mp4"
     
     # input text
-    text_input = ["Book falling like a rock", "Book ascending like a rock"]
+    text_input = ["Book falling like a rock", "Book rising like a rock"]
     
     # set up config
     # NOTE: make sure to set the "pretrained" field to the path of the downloaded checkpoint: "pretrained_ckpt/PatchAndFuse/downstream_tasks/ssv2_label_patch_and_fuse.pth"
@@ -136,6 +136,7 @@ if __name__ == "__main__":
     model_cls = registry.get_model_class(model_name)
     print("model class:", model_cls)
     model = model_cls.from_config(model_config).to(device)
+    model.eval()
 
     ## == process video and text == ##
     vr = VideoReader(video_path, width=224, height=224)
