@@ -78,7 +78,7 @@ run:
   runner: runner_base_patch_and_fuse
   
   # task object name
-  task: acdybench
+  task: actionbench
 
   # which module is used for inference ["backbone", "knowledge_patcher"]
   eval_module: knowledge_patcher

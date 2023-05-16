@@ -4,9 +4,9 @@ export TOKENIZERS_PARALLELISM=false
 ### usage examples for inferencing different tasks ###
 # CONFIG is taken from .yaml from configs/projects/eval
 
-## == inference acdybench == ##
+## == inference actionbench == ##
 INFERENCE_TYPE="physical_knowledge_bench"
-CONFIG="configs/projects/eval/acdybench/backbone/internvideo/ssv2/acdybench_ssv2_internvideo_backbone__action_antonym.yaml"
+CONFIG="configs/projects/eval/actionbench/backbone/internvideo/ssv2/actionbench_ssv2_internvideo_backbone__action_antonym.yaml"
 
 ## == inference nextqa == ##
 INFERENCE_TYPE="downstream_task_next_qa"

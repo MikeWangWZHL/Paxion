@@ -1,6 +1,6 @@
 datasets/*
-AcDyBench/ego4d
-AcDyBench/ssv2
+ActionBench/ego4d
+ActionBench/ssv2
 pretrained_ckpt/*
 *.pth
 *.pt

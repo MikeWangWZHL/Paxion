@@ -23,7 +23,7 @@ from sklearn.metrics import precision_recall_fscore_support, f1_score
 
 DEBUG = False
 
-@registry.register_task("acdybench")
+@registry.register_task("actionbench")
 class PatchAndFuseBase(BaseTask):
     def __init__(self, cfg):
         super().__init__()

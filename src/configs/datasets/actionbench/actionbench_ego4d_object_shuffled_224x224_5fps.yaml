@@ -1,0 +1,23 @@
+datasets:
+  actionbench_ego4d_224x224_5fps: # name of the dataset builder
+    type: "object_shuffled"
+    dataset_card: dataset_cards/actionbench_ego4d.md
+    data_type: videos # [images|videos|features]
+
+    build_info:
+      # Be careful not to append minus sign (-) before split to avoid itemizing
+      annotations:
+        train:
+          url: ActionBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/train.jsonl
+          storage: ActionBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/train.jsonl
+          state_change_filtering_json: ActionBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/state_change_heavy_instance_filtering_train.json
+        val:
+          url: ActionBench/ego4d/egoclip_subset_action_antonyms_object_shuffled_train_val_test_split/val.jsonl
+          storage: ActionBench/ego4d/egoclip_subset_action_antonyms_object_shuffled_train_val_test_split/val.jsonl
+          state_change_filtering_json: ActionBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/state_change_heavy_instance_filtering_val.json
+        test:
+          url: ActionBench/ego4d/egoclip_subset_action_antonyms_object_shuffled_train_val_test_split/test.jsonl
+          storage: ActionBench/ego4d/egoclip_subset_action_antonyms_object_shuffled_train_val_test_split/test.jsonl
+          state_change_filtering_json: ActionBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/state_change_heavy_instance_filtering_test.json
+      videos:
+        storage: datasets/Ego4D/video_clips/clips_downsampled_5fps_downsized_224x224

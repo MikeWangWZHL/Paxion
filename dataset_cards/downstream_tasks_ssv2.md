@@ -1,5 +1,5 @@
 ## Instruction for Downloading Videos
-refer to [acdybench_ssv2.md](./acdybench_ssv2.md)
+refer to [actionbench_ssv2.md](./actionbench_ssv2.md)
 
 ## Downstream Task: SSv2-label and SSv2-template
 - paper: https://arxiv.org/abs/2206.03428

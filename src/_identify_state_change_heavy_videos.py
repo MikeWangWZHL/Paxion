@@ -237,7 +237,7 @@ def _main_loop_ego4d(model, metric, dataloader, bs, output_dir, split):
 
 def load_ssv2_dataset(vis_processors, txt_processors, bs,  split = "train"):
     output_vis_dir = "testing_outputs/physical_knowledge_evaulation_dataset/identify_state_change_heavy_videos/ssv2"
-    labels_path = '../AcDyBench/ssv2/shuffled_object_and_action_antonyms'
+    labels_path = '../ActionBench/ssv2/shuffled_object_and_action_antonyms'
     vis_path = '../datasets/SSv2/video_clips/clips_downsampled_5fps_downsized_224x224'
     fps = 5
 
@@ -246,7 +246,7 @@ def load_ssv2_dataset(vis_processors, txt_processors, bs,  split = "train"):
     else:
         use_templates_as_labels = False
 
-    dataset = AcDyBenchDataset_SSv2(
+    dataset = ActionBenchDataset_SSv2(
         vis_path, 
         labels_path, 
         vis_processor = vis_processors["eval"],
@@ -270,10 +270,10 @@ def load_ssv2_dataset(vis_processors, txt_processors, bs,  split = "train"):
 def load_ego4d_dataset(vis_processors, txt_processors, bs, split = "train"):
     output_vis_dir = "testing_outputs/physical_knowledge_evaulation_dataset/identify_state_change_heavy_videos/ego4d"
     VIS_ROOT = "../datasets/Ego4d/video_clips/clips_downsampled_5fps_downsized_224x224"
-    ANN_JSONL = f"../AcDyBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/{split}.jsonl"
+    ANN_JSONL = f"../ActionBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/{split}.jsonl"
     fps = 5
 
-    dataset = AcDyBenchDataset_Ego4D(
+    dataset = ActionBenchDataset_Ego4D(
         vis_root=VIS_ROOT,
         ann_path=ANN_JSONL,
         task = "video_text_matching",
@@ -330,13 +330,13 @@ if __name__ == "__main__":
     # ssv2 train
     split = 'train'
     dataloader, output_vis_dir = load_ssv2_dataset(vis_processors, txt_processors, bs, split)
-    output_dir = "../AcDyBench/ssv2/shuffled_object_and_action_antonyms"
+    output_dir = "../ActionBench/ssv2/shuffled_object_and_action_antonyms"
     metric = FilterMetric(0.003, 0.95)
     _main_loop_ssv2(model, metric, dataloader, bs,  output_dir, split)
 
     # ego4d train
     split = 'train'
     dataloader, output_vis_dir = load_ego4d_dataset(vis_processors, txt_processors, bs, split)
-    output_dir = "../AcDyBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split"
+    output_dir = "../ActionBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split"
     metric = FilterMetric(0.003, 0.95)
     _main_loop_ego4d(model, metric, dataloader, bs, output_dir, split)

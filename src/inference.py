@@ -81,7 +81,7 @@ def get_runner_class(cfg):
 
     return runner_cls
 
-def inference_step_acdybench(task, model, samples, eval_task, eval_module):
+def inference_step_actionbench(task, model, samples, eval_task, eval_module):
     if eval_task in ["action_antonym", "object_shuffle"]:
         batch_size = len(samples['text_input'])
         if eval_module == "backbone":
@@ -259,7 +259,7 @@ def save_video_frames(sample, output_dir, b=0):
     get_concat_h(imgs).save(f"{output_dir}/{b}_original_frames.jpg")    
     get_concat_h(imgs[::-1]).save(f"{output_dir}/{b}_reversed_frames.jpg")
 
-def ssv2_acdybench_inference(model, dataset, task, output_dir, num_query = 10, sample_ids=[]):
+def ssv2_actionbench_inference(model, dataset, task, output_dir, num_query = 10, sample_ids=[]):
     print("dataset length:", len(dataset))
     if sample_ids == []:
         assert num_query > 0
@@ -294,7 +294,7 @@ def ssv2_acdybench_inference(model, dataset, task, output_dir, num_query = 10, s
         eval_module = task.config.run_cfg.get("eval_module", "backbone")
         print("eval_module:",eval_module)
 
-        sims, preds, targets = inference_step_acdybench(task, model, input_sample, eval_task=eval_task, eval_module=eval_module)
+        sims, preds, targets = inference_step_actionbench(task, model, input_sample, eval_task=eval_task, eval_module=eval_module)
         
         print("sims:", sims)
         print("preds:", preds)
@@ -537,10 +537,10 @@ def main(num_query = 10, sample_ids = []):
     # build model
     model = task.build_model(cfg)
 
-    if inference_type == "acdybench":
-        ssv2_acdybench_inference(
+    if inference_type == "actionbench":
+        ssv2_actionbench_inference(
             model, 
-            datasets['acdybench_ssv2_224x224_5fps']['val'], 
+            datasets['actionbench_ssv2_224x224_5fps']['val'], 
             task,
             output_dir=cfg.run_cfg.output_dir, 
             num_query=num_query,

@@ -38,7 +38,7 @@ model:
 
 
 datasets:
-  acdybench_ssv2_224x224_5fps:
+  actionbench_ssv2_224x224_5fps:
     type: "action_antonyms_and_object_shuffled"
     vis_processor:
       train:
@@ -72,7 +72,7 @@ datasets:
     # use template annotation instead of labels
     use_templates_as_labels: True
 
-## NOTE: for KP-Transformer-FT, simply replace the "model" section above with the "model" section in `configs/projects/train/acdybench/*/KP-Transformer-VTC.yaml`
+## NOTE: for KP-Transformer-FT, simply replace the "model" section above with the "model" section in `configs/projects/train/actionbench/*/KP-Transformer-VTC.yaml`
 # and setup the "pretrained" to the trained Knowledge Patcher-Transformer checkpoint path accordingly  
 
 run:
@@ -80,7 +80,7 @@ run:
   runner: runner_base_patch_and_fuse
   
   # task object name
-  task: acdybench
+  task: actionbench
 
   # which module is used for inference ["backbone", "knowledge_patcher", "knowledge_patcher_baseline"]
   eval_module: knowledge_patcher

@@ -1,0 +1,21 @@
+datasets:
+  actionbench_ssv2_224x224_5fps: # name of the dataset builder
+    dataset_card: dataset_cards/actionbench_ssv2.md
+    data_type: videos # [images|videos|features]
+
+    build_info:
+      # Be careful not to append minus sign (-) before split to avoid itemizing
+      annotations:
+        train:
+          path: ActionBench/ssv2/shuffled_object_and_action_antonyms
+          use_templates_as_labels: false
+          state_change_filtering_json: ActionBench/ssv2/shuffled_object_and_action_antonyms/state_change_heavy_instance_filtering_train.json
+        val:
+          path: ActionBench/ssv2/shuffled_object_and_action_antonyms
+          use_templates_as_labels: false
+          state_change_filtering_json: ActionBench/ssv2/shuffled_object_and_action_antonyms/state_change_heavy_instance_filtering_val.json
+        test:
+          path: ActionBench/ssv2/shuffled_object_and_action_antonyms
+          use_templates_as_labels: true # This needs to be true to be loaded properly
+      videos:
+        path: datasets/SSv2/video_clips/clips_downsampled_5fps_downsized_224x224

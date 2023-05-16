@@ -1,7 +1,7 @@
 from lavis.datasets.builders.base_dataset_builder import BaseDatasetBuilder
 from data import (
-    AcDyBenchDataset_Ego4D,
-    AcDyBenchDataset_SSv2,
+    ActionBenchDataset_Ego4D,
+    ActionBenchDataset_SSv2,
     DownstreamTask_Retrieval_SSv2,
     DownstreamTask_MomentsInTime,
     DownstreamTask_Temporal,
@@ -23,14 +23,14 @@ from omegaconf import OmegaConf
 from torchvision.datasets.utils import download_url
 
 
-@registry.register_builder("acdybench_ego4d_224x224_5fps")
-class AcDyBenchDataset_Ego4D_Builder(BaseDatasetBuilder):
-    train_dataset_cls = AcDyBenchDataset_Ego4D
-    eval_dataset_cls = AcDyBenchDataset_Ego4D
+@registry.register_builder("actionbench_ego4d_224x224_5fps")
+class ActionBenchDataset_Ego4D_Builder(BaseDatasetBuilder):
+    train_dataset_cls = ActionBenchDataset_Ego4D
+    eval_dataset_cls = ActionBenchDataset_Ego4D
 
     DATASET_CONFIG_DICT = {
-        "default": "configs/datasets/acdybench/acdybench_ego4d_224x224_5fps.yaml",
-        "object_shuffled": "configs/datasets/acdybench/acdybench_ego4d_object_shuffled_224x224_5fps.yaml"
+        "default": "configs/datasets/actionbench/actionbench_ego4d_224x224_5fps.yaml",
+        "object_shuffled": "configs/datasets/actionbench/actionbench_ego4d_object_shuffled_224x224_5fps.yaml"
     }
     def __init__(self, cfg=None):
         super().__init__(cfg)
@@ -154,15 +154,15 @@ class AcDyBenchDataset_Ego4D_Builder(BaseDatasetBuilder):
 
         return datasets
 
-@registry.register_builder("acdybench_ssv2_224x224_5fps")
-class AcDyBenchDataset_SSv2_Builder(BaseDatasetBuilder):
+@registry.register_builder("actionbench_ssv2_224x224_5fps")
+class ActionBenchDataset_SSv2_Builder(BaseDatasetBuilder):
 
-    train_dataset_cls = AcDyBenchDataset_SSv2
-    eval_dataset_cls = AcDyBenchDataset_SSv2
+    train_dataset_cls = ActionBenchDataset_SSv2
+    eval_dataset_cls = ActionBenchDataset_SSv2
 
     DATASET_CONFIG_DICT = {
-        "default": "configs/datasets/acdybench/acdybench_ssv2_224x224_5fps.yaml",
-        "action_antonyms_and_object_shuffled": "configs/datasets/acdybench/acdybench_ssv2_antonyms_224x224_5fps.yaml"
+        "default": "configs/datasets/actionbench/actionbench_ssv2_224x224_5fps.yaml",
+        "action_antonyms_and_object_shuffled": "configs/datasets/actionbench/actionbench_ssv2_antonyms_224x224_5fps.yaml"
     }
     def __init__(self, cfg=None):
         super().__init__(cfg)

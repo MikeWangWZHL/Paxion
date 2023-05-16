@@ -30,8 +30,8 @@ logging.getLogger().setLevel(logging.INFO)
 
 decord.bridge.set_bridge('native')
 
-### === AcDyBenchDataset === ###
-class AcDyBenchDatasetBase(BaseDataset):
+### === ActionBenchDataset === ###
+class ActionBenchDatasetBase(BaseDataset):
     def __init__(self,
         annotation,
         task = "video_text_matching",
@@ -179,7 +179,7 @@ class AcDyBenchDatasetBase(BaseDataset):
                 "neg_instances":neg_instances
             }
 
-class AcDyBenchDataset_Ego4D(AcDyBenchDatasetBase):
+class ActionBenchDataset_Ego4D(ActionBenchDatasetBase):
     def __init__(self,
         vis_root,
         ann_path,
@@ -200,8 +200,8 @@ class AcDyBenchDataset_Ego4D(AcDyBenchDatasetBase):
         dataset for loading video frames from video clips and preprocessed subset of EgoClip annotations
         params:
             vis_root (string): Root directory of video clips (e.g., datasets/Ego4D/video_clips/clips_downsampled_5fps_downsized_224x224)
-            ann_path (string): path to the egoclip style ann jsonl, each line is one instance (e.g., AcDyBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/val.jsonl)
-            state_change_filtering_json: path to the json file that contains indication of whether a video is state-change salient (e.g., AcDyBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/state_change_heavy_instance_filtering_val.json)
+            ann_path (string): path to the egoclip style ann jsonl, each line is one instance (e.g., ActionBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/val.jsonl)
+            state_change_filtering_json: path to the json file that contains indication of whether a video is state-change salient (e.g., ActionBench/ego4d/egoclip_subset_action_antonyms_train_val_test_split/state_change_heavy_instance_filtering_val.json)
             task (string): what's the evaluation task: choose from ["video_text_matching", "action_antonym", "object_shuffle", "reversed_video"]
                 - "video_text_matching": for general vl tasks; returns a video_input and the corresponding text
                 - "action_antonym": returns a video_input and two text input: one original annotation text, one modified annotation text with all verbs repleced with their antonym
@@ -213,7 +213,7 @@ class AcDyBenchDataset_Ego4D(AcDyBenchDatasetBase):
             frm_sampling_strategy (string): how do we sample frames from the clip: ['uniform']
             k (int): if not none, take a subset of k instances
         """
-        # Ego4d nouns and verbs taxonomy size: see AcDyBench/ego4d/*.csv for the index mapping
+        # Ego4d nouns and verbs taxonomy size: see ActionBench/ego4d/*.csv for the index mapping
         self.noun_dim = 582  # num of nouns of ego4d taxonomy dictionary, not used for now, could be used for fine-grained negative sampling
         self.verb_dim = 118  # num of verbs of ego4d taxonomy dictionary, not used for now, could be used for fine-grained negative sampling
 
@@ -385,7 +385,7 @@ class AcDyBenchDataset_Ego4D(AcDyBenchDatasetBase):
         )
 
 Split = Literal['train', 'val', 'test']
-class AcDyBenchDataset_SSv2(AcDyBenchDatasetBase):
+class ActionBenchDataset_SSv2(ActionBenchDatasetBase):
     def __init__(self,
         vis_root: str,
         ann_root: str,
@@ -407,7 +407,7 @@ class AcDyBenchDataset_SSv2(AcDyBenchDatasetBase):
         dataset for loading video frames from video clips and preprocessed subset of SSv2
         params:
             vis_root (string): Root directory of video clips (e.g., datasets/SSv2/video_clips/clips_downsampled_5fps_downsized_224x224)
-            ann_root (string): path to the annotations root directory (e.g., AcDyBench/ssv2/shuffled_object_and_action_antonyms)
+            ann_root (string): path to the annotations root directory (e.g., ActionBench/ssv2/shuffled_object_and_action_antonyms)
             use_templates_as_labels (bool): Whether to output the raw label template instead of the in-filled template. The test set only has raw templates as annotations.
             task (string): what's the evaluation task: choose from ["video_text_matching", "action_antonym", "reversed_video"]
                 - "video_text_matching": for general vl tasks; returns a video_input and the corresponding text
@@ -674,7 +674,7 @@ class AcDyBenchDataset_SSv2(AcDyBenchDatasetBase):
 
 
 ### === Downstream Datasets === ###
-class DownstreamTask_Retrieval_SSv2(AcDyBenchDatasetBase):
+class DownstreamTask_Retrieval_SSv2(ActionBenchDatasetBase):
     def __init__(self,
         vis_root: str,
         ann_root: str,
@@ -836,7 +836,7 @@ class DownstreamTask_Retrieval_SSv2(AcDyBenchDatasetBase):
             text_fields=["text_input"]
         )
 
-class DownstreamTask_MomentsInTime(AcDyBenchDatasetBase):
+class DownstreamTask_MomentsInTime(ActionBenchDatasetBase):
     def __init__(self,
         vis_root: str,
         ann_root: str,
@@ -997,7 +997,7 @@ class DownstreamTask_MomentsInTime(AcDyBenchDatasetBase):
             text_fields=["text_input"]
         )
 
-class DownstreamTask_Temporal(AcDyBenchDatasetBase):
+class DownstreamTask_Temporal(ActionBenchDatasetBase):
     def __init__(self,
         vis_root: dict,
         ann_root: str,
@@ -1174,7 +1174,7 @@ class DownstreamTask_Temporal(AcDyBenchDatasetBase):
             text_fields=["text_input"]
         )
 
-class DownstreamTask_QA_NextQA(AcDyBenchDatasetBase):
+class DownstreamTask_QA_NextQA(ActionBenchDatasetBase):
     def __init__(self,
         vis_root: dict,
         ann_root: str,

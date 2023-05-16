@@ -27,7 +27,7 @@
 
 ## Dataset Setup
 ### Download Annotations
-- Download the annotations for **AcDyBench** [here]() (Link removed for anonymity); and put under `AcDyBench/ego4d` and `AcDyBench/ssv2`
+- Download the annotations for **ActionBench** [here]() (Link removed for anonymity); and put under `ActionBench/ego4d` and `ActionBench/ssv2`
 - Download the annotations for **downstream tasks** [here]() (Link removed for anonymity); and put the downloaded folder under the root directory of this repo as `datasets/`
 - **Annotation details** for each dataset can be found in the `.md` files in [dataset_cards](./dataset_cards/).
 
@@ -40,7 +40,7 @@ Please refer to the `.md` files in [dataset_cards](./dataset_cards/) for instruc
 - **Singularity**: Download the `Pre-trained checkpoints` following the instructions [here](https://github.com/jayleicn/singularity#download); put the `singularity_temporal_17m` under `src/pretrained_ckpt/Singularity/singularity_temporal_17m.pth`
 
 ## Download Trained Knowledge Patcher and Knowledge Fuser
-- Download the Knowledge Patcher checkpoints on AcdyBench [here]() (Link removed for anonymity); and put under `src/pretrained_ckpt/PatchAndFuse/AcDyBench`
+- Download the Knowledge Patcher checkpoints on actionbench [here]() (Link removed for anonymity); and put under `src/pretrained_ckpt/PatchAndFuse/ActionBench`
 - Download the Patch & Fuse checkpoints on downstream tasks [here]() (Link removed for anonymity); and put under `src/pretrained_ckpt/PatchAndFuse/downstream_tasks`
 
 # Quick Start
@@ -50,7 +50,7 @@ Please refer to the `.md` files in [dataset_cards](./dataset_cards/) for instruc
 We build our codebase on top of [LAVIS framework](https://github.com/salesforce/LAVIS/tree/main). Please refer to the [documentation](https://opensource.salesforce.com/LAVIS//latest/intro.html#library-design) to get an idea of the overall structure (Tasks, Models, Runners, etc). Config files for running any tasks can be found in `src/configs/projects`, we include detailed comments in the `.yaml` files for more fine-grained customization on the experimental configs.
 
 ## Training
-To train Knowledge Patcher on AcDyBench or further train Knowledge Fuser on downstream tasks, we provide configs under `src/configs/projects/train`; Please make sure to look into the configs and do necessary modifications (e.g. specify trained checkpoints which are marked as `#TODO`). 
+To train Knowledge Patcher on ActionBench or further train Knowledge Fuser on downstream tasks, we provide configs under `src/configs/projects/train`; Please make sure to look into the configs and do necessary modifications (e.g. specify trained checkpoints which are marked as `#TODO`). 
 
 Here is an example for using the training configs (`run_scripts/train.sh`):
     ```
@@ -59,13 +59,13 @@ Here is an example for using the training configs (`run_scripts/train.sh`):
     ```
 
 ## Evaluation
-To evaluate Knowledge Patcher on AcDyBench or evaluate trained Knowledge Fuser on downstream tasks, we provide configs under `src/configs/projects/eval`; Please make sure to look into the configs and do necessary modifications (e.g. specify trained checkpoints which are marked as `#TODO`). 
+To evaluate Knowledge Patcher on ActionBench or evaluate trained Knowledge Fuser on downstream tasks, we provide configs under `src/configs/projects/eval`; Please make sure to look into the configs and do necessary modifications (e.g. specify trained checkpoints which are marked as `#TODO`). 
 
-Here are two examples for using the evaluation configs (`run_scripts/eval_acdybench.sh` and `run_scripts/eval_downstream_task.sh` ):
-- eval acdybench:
+Here are two examples for using the evaluation configs (`run_scripts/eval_actionbench.sh` and `run_scripts/eval_downstream_task.sh` ):
+- eval actionbench:
     ```
         cd src/
-        bash run_scripts/eval_acdybench.sh 
+        bash run_scripts/eval_actionbench.sh 
     ```
 - eval downstream task:
     ```

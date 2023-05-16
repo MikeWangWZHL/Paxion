@@ -1,5 +1,5 @@
 ## Instruction for Downloading Videos
-- **SSv2 videos**: refer to [acdybench_ssv2.md](./acdybench_ssv2.md).
+- **SSv2 videos**: refer to [actionbench_ssv2.md](./actionbench_ssv2.md).
 - **Kinetics400 videos**: download the subset of Kinetic400 that are required in Temporal-Kinetics
     - Install `yt-dlp` following the instructions [here](https://github.com/yt-dlp/yt-dlp.git)
     - Download the required videos using our provided script:

@@ -1,0 +1,187 @@
+
+## == internvideo backbone == ## 
+model:
+  arch: patch_and_fuse_internvideo
+  model_type: InternVideo-MM-L-14
+  load_pretrained: True
+  backbone_pretrained: "pretrained_ckpt/InternVideo/models/InternVideo-MM-L-14.ckpt"
+
+  text_perceiver_config:
+    dim: 768 # latent query dim
+    k_v_dim: 768 # text_width
+    depth: 1
+    dim_head: 64
+    heads: 8
+    num_latents: 16
+    ff_mult: 2
+
+  vision_perceiver_config:
+    dim: 768 # latent query dim
+    k_v_dim: 1024 # vision_width
+    depth: 1
+    dim_head: 64
+    heads: 8
+    num_latents: 16
+    ff_mult: 2
+
+  objectives: ["video_text_contrastive"]
+  loss_weighting: [1.0]
+  if_use_attn_guidance: False
+  if_use_dual_perceiver: False
+  if_add_temporal_emebdding: True
+  num_frms: 8
+  temp_emb_drop_out: 0.1
+
+  # do ATM only on state change salient videos
+  state_change_filtering_for_FDM: True
+
+## ----------------------------------------------------- ##
+## == ClipVip backbone == ## 
+## NOTE: uncomment following "model" section to use the clipvip backbone; modify the output_dir accordingly under "run:" section
+# model:
+#   arch: patch_and_fuse_clipvip
+#   model_type: pretrain_vip_base_32
+#   load_pretrained: True
+#   backbone_config_json: "ClipViP/src/configs/pretrained/pretrain_vip_base_32.json"
+
+#   text_perceiver_config:
+#     dim: 512 # latent query dim
+#     k_v_dim: 512 # text_width
+#     depth: 1
+#     dim_head: 64
+#     heads: 8
+#     num_latents: 16
+#     ff_mult: 2
+
+#   vision_perceiver_config:
+#     dim: 512 # latent query dim
+#     k_v_dim: 768 # vision_width
+#     depth: 1
+#     dim_head: 64
+#     heads: 8
+#     num_latents: 16
+#     ff_mult: 2
+
+#   objectives: ["video_text_contrastive"]
+#   loss_weighting: [1.0]
+#   if_use_attn_guidance: False
+#   if_use_dual_perceiver: False
+#   if_add_temporal_emebdding: True
+#   num_frms: 8
+#   temp_emb_drop_out: 0.1
+
+#   # do ATM only on state change salient videos
+#   state_change_filtering_for_FDM: True
+
+## ----------------------------------------------------- ##
+
+## == Singularity backbone == ## 
+## NOTE: uncomment following "model" section to use the singularity backbone; modify the output_dir accordingly under "run:" section 
+# model:
+#   arch: patch_and_fuse_singularity
+#   model_type: singularity_temporal_17m
+#   load_pretrained: True
+#   backbone_config_yaml: "Singularity/configs/pretrained_singularity_temporal_17m.yaml"
+
+#   text_perceiver_config:
+#     dim: 256 # latent query dim
+#     k_v_dim: 768 # text_width
+#     depth: 1
+#     dim_head: 64
+#     heads: 8
+#     num_latents: 16
+#     ff_mult: 2
+
+#   vision_perceiver_config:
+#     dim: 256 # latent query dim
+#     k_v_dim: 768 # vision_width
+#     depth: 1
+#     dim_head: 64
+#     heads: 8
+#     num_latents: 16
+#     ff_mult: 2
+
+#   objectives: ["video_text_contrastive"]
+#   loss_weighting: [1.0]
+#   if_use_attn_guidance: False
+#   if_use_dual_perceiver: False
+#   if_add_temporal_emebdding: True
+#   num_frms: 8
+#   temp_emb_drop_out: 0.1
+
+#   # do FDM only on state change salient videos
+#   state_change_filtering_for_FDM: True
+
+## ----------------------------------------------------- ##
+
+
+datasets:
+  actionbench_ego4d_224x224_5fps: # using subset of egoclip for training and egomcq for validation
+    vis_processor:
+      train:
+        name: "video_train"
+        image_size: 224
+      eval:
+        name: "internvideo_eval"
+        image_size: 224
+    text_processor:
+      train:
+        name: "vl_dynamic_ego4d_text"
+      eval:
+        name: "vl_dynamic_ego4d_text"
+    
+    # IMPORTANT configs: 
+    fps: 5 # if downsampled, use 5 fps
+    task: "action_antonym"
+    neg_sampling_same_clip: 0
+    # eval_only: True
+    
+    # other arguements
+    train_k: null # sample a subset of k instances
+    eval_k: null # sample a subset of k instances 
+    frm_sampling_strategy: "uniform" # take the first and last frame as start and end state
+    num_frm: 8
+    train_frame_height: 224
+    train_frame_width: 224
+    eval_frame_height: 224
+    eval_frame_width: 224
+
+run:
+  # use custom runner
+  runner: runner_base_patch_and_fuse
+  
+  # task object name
+  task: actionbench
+
+  # which module is used for inference ["backbone", "knowledge_patcher", "knowledge_patcher_baseline"]
+  eval_module: knowledge_patcher
+  eval_task: action_antonym
+
+  # optimizer
+  lr_sched: "linear_warmup_cosine_lr"
+  init_lr: 1e-5
+  min_lr: 0
+  weight_decay: 0.05
+  max_epoch: 1
+
+  batch_size_train: 32
+  batch_size_eval: 4
+  
+  num_workers: 4
+
+  seed: 42
+  output_dir: "output/actionbench/train/Ego4d__KP-Perceiver-VTC__internvideo"
+
+  amp: False
+  resume_ckpt_path: null
+
+  evaluate: False
+  
+  train_splits: ["train"]
+  valid_splits: ["val"]
+  # test_splits: ["test"]
+
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True
