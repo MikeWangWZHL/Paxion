@@ -17,5 +17,5 @@ ckpt/
 *.pt
 *tar.gz
 *.zip
-*.png
-*.jpg
+# *.png
+# *.jpg
