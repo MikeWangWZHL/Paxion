@@ -1,5 +1,5 @@
 
-# Repo for paper: "Paxion: Patching Action Knowledge in Video-Language Foundation Models"
+# Repo for paper: [Paxion: Patching Action Knowledge in Video-Language Foundation Models]()
 
 <!-- ![Overview of the Action Dynamics Benchmark (ActionBench)](./image/ActionBench_illustration.png)
 ![Overview of the Paxion framework](./image/paxion_overview.png) -->
@@ -100,6 +100,10 @@ Here are two examples for using the evaluation configs (`run_scripts/eval_action
 For customized inference, i.e., evaluate on some specific samples and visualize the results, we provide [inference.py](./src/inference.py) where one can set spefic instance ids in the `__main__` function. 
 
 Examples for running inference on different tasks can be found in `run_scripts/inference.sh`
+
+# Citation
+```
+```
 
 # Acknowledgement
 This code used resources from [LAVIS](https://github.com/salesforce/LAVIS), [InternVideo](https://github.com/OpenGVLab/InternVideo), [ClipViP](https://github.com/microsoft/XPretrain/tree/main/CLIP-ViP), [Singularity](https://github.com/jayleicn/singularity), and [flamingo-pytorch](https://github.com/lucidrains/flamingo-pytorch). The code is implemented using PyTorch. We thank the authors for their great work and open-sourcing the code. 
