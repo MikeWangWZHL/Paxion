@@ -5,13 +5,13 @@
 ![Overview of the Paxion framework](./image/paxion_overview.png) -->
 <div align="center">
     <figure>
-    <img src="./image/ActionBench_illustration.png" alt="alt_text" width="100%">
+    <img src="ActionBench_overview.png" alt="alt_text" width="100%">
     <figcaption>Overview of the Action Dynamics Benchmark (ActionBench)</figcaption>
     </figure>
 </div>
 <div align="center">
     <figure>
-    <img src="./image/paxion_overview.png" alt="alt_text" width="100%">
+    <img src="Paxion_overview.png" alt="alt_text" width="100%">
     <figcaption>Overview of the Paxion framework</figcaption>
     </figure>
 </div>
