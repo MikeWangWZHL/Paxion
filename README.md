@@ -1,6 +1,24 @@
+
 # Repo for paper: "Paxion: Patching Action Knowledge in Video-Language Foundation Models"
 
-### A note regarding the naming convention in this repo: we use "PatchAndFuse" or "patch_and_fuse" as an alternative name for "Paxion".
+<!-- ![Overview of the Action Dynamics Benchmark (ActionBench)](./image/ActionBench_illustration.png)
+![Overview of the Paxion framework](./image/paxion_overview.png) -->
+<div align="center">
+    <figure>
+    <img src="./image/ActionBench_illustration.png" alt="alt_text" width="100%">
+    <figcaption>Overview of the Action Dynamics Benchmark (ActionBench)</figcaption>
+    </figure>
+</div>
+<div align="center">
+    <figure>
+    <img src="./image/paxion_overview.png" alt="alt_text" width="100%">
+    <figcaption>Overview of the Paxion framework</figcaption>
+    </figure>
+</div>
+
+---
+
+### 📝 A note regarding the naming convention in this repo: we use "PatchAndFuse" or "patch_and_fuse" as an alternative name for the "Paxion" model.
 
 # Setup
 ## Environment Setup 
