@@ -9,6 +9,7 @@
     <figcaption>Overview of the Action Dynamics Benchmark (ActionBench)</figcaption>
     </figure>
 </div>
+<br/>
 <div align="center">
     <figure>
     <img src="Paxion_overview.png" alt="alt_text" width="100%">
