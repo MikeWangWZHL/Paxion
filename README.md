@@ -101,9 +101,15 @@ For customized inference, i.e., evaluate on some specific samples and visualize 
 
 Examples for running inference on different tasks can be found in `run_scripts/inference.sh`
 
-<!-- # Citation
+# Citation
 ```
-``` -->
+@article{wang2023paxion,
+  title={Paxion: Patching Action Knowledge in Video-Language Foundation Models},
+  author={Wang, Zhenhailong and Blume, Ansel and Li, Sha and Liu, Genglin and Cho, Jaemin and Tang, Zineng and Bansal, Mohit and Ji, Heng},
+  journal={arXiv preprint arXiv:2305.10683},
+  year={2023}
+}
+```
 
 # Acknowledgement
 This code used resources from [LAVIS](https://github.com/salesforce/LAVIS), [InternVideo](https://github.com/OpenGVLab/InternVideo), [ClipViP](https://github.com/microsoft/XPretrain/tree/main/CLIP-ViP), [Singularity](https://github.com/jayleicn/singularity), and [flamingo-pytorch](https://github.com/lucidrains/flamingo-pytorch). The code is implemented using PyTorch. We thank the authors for their great work and open-sourcing the code. 
